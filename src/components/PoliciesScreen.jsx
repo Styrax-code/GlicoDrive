@@ -12,13 +12,10 @@ import {
   AlertCircle,
   Eye,
 } from "lucide-react";
-import { useGlicoDrive } from "../utils/provider";
 
 const PoliciesScreen = () => {
   const [activeTab, setActiveTab] = useState("active");
   const [searchQuery, setSearchQuery] = useState("");
-
-  const {setCurrentScreen} = useGlicoDrive();
 
   // Mock data for policies
   const activePolicies = [
@@ -80,33 +77,33 @@ const PoliciesScreen = () => {
   const getStatusColor = (status) => {
     switch (status) {
       case "active":
-        return "text-green-600 bg-green-100";
+        return "text-green-700 bg-green-100/90";
       case "expiring":
-        return "text-orange-600 bg-orange-100";
+        return "text-orange-700 bg-orange-100/90";
       case "expired":
-        return "text-red-600 bg-red-100";
+        return "text-red-700 bg-red-100/90";
       default:
-        return "text-gray-600 bg-gray-100";
+        return "text-gray-700 bg-gray-100/90";
     }
   };
 
   const PolicyCard = ({ policy, type = "policy" }) => (
-    <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 mb-4">
-      <div className="flex items-start justify-between mb-3">
+    <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-5 shadow-lg border border-white/30 mb-4 hover:shadow-xl transition-all duration-300">
+      <div className="flex items-start justify-between mb-4">
         <div className="flex items-center space-x-3">
-          <div className="w-12 h-12 bg-purple-100 rounded-2xl flex items-center justify-center">
-            <Car className="w-6 h-6 text-purple-600" />
+          <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg">
+            <Car className="w-6 h-6 text-white" />
           </div>
           <div>
-            <h3 className="font-semibold text-gray-900">{policy.vehicle}</h3>
-            <p className="text-sm text-gray-500">
+            <h3 className="font-bold text-gray-900">{policy.vehicle}</h3>
+            <p className="text-sm text-gray-600 font-medium">
               {type === "quote" ? `Quote ${policy.id}` : policy.plate}
             </p>
           </div>
         </div>
         {policy.status && (
           <span
-            className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(
+            className={`px-3 py-1.5 rounded-full text-xs font-bold shadow-sm ${getStatusColor(
               policy.status
             )}`}
           >
@@ -119,24 +116,24 @@ const PoliciesScreen = () => {
 
       <div className="grid grid-cols-2 gap-4 mb-4">
         <div>
-          <p className="text-xs text-gray-500 mb-1">Coverage Type</p>
-          <p className="text-sm font-medium text-gray-900">{policy.type}</p>
+          <p className="text-xs text-gray-500 mb-1 font-medium">Coverage Type</p>
+          <p className="text-sm font-bold text-gray-900">{policy.type}</p>
         </div>
         <div>
-          <p className="text-xs text-gray-500 mb-1">Premium</p>
-          <p className="text-sm font-medium text-gray-900">{policy.premium}</p>
+          <p className="text-xs text-gray-500 mb-1 font-medium">Premium</p>
+          <p className="text-sm font-bold text-gray-900">{policy.premium}</p>
         </div>
       </div>
 
       {type === "policy" && (
         <div className="grid grid-cols-2 gap-4 mb-4">
           <div>
-            <p className="text-xs text-gray-500 mb-1">Start Date</p>
-            <p className="text-sm text-gray-700">{policy.startDate}</p>
+            <p className="text-xs text-gray-500 mb-1 font-medium">Start Date</p>
+            <p className="text-sm font-semibold text-gray-700">{policy.startDate}</p>
           </div>
           <div>
-            <p className="text-xs text-gray-500 mb-1">End Date</p>
-            <p className="text-sm text-gray-700">{policy.endDate}</p>
+            <p className="text-xs text-gray-500 mb-1 font-medium">End Date</p>
+            <p className="text-sm font-semibold text-gray-700">{policy.endDate}</p>
           </div>
         </div>
       )}
@@ -144,23 +141,23 @@ const PoliciesScreen = () => {
       {type === "quote" && (
         <div className="grid grid-cols-2 gap-4 mb-4">
           <div>
-            <p className="text-xs text-gray-500 mb-1">Created</p>
-            <p className="text-sm text-gray-700">{policy.created}</p>
+            <p className="text-xs text-gray-500 mb-1 font-medium">Created</p>
+            <p className="text-sm font-semibold text-gray-700">{policy.created}</p>
           </div>
           <div>
-            <p className="text-xs text-gray-500 mb-1">Valid Until</p>
-            <p className="text-sm text-gray-700">{policy.validUntil}</p>
+            <p className="text-xs text-gray-500 mb-1 font-medium">Valid Until</p>
+            <p className="text-sm font-semibold text-gray-700">{policy.validUntil}</p>
           </div>
         </div>
       )}
 
-      <div className="flex space-x-2">
+      <div className="flex space-x-3">
         {type === "policy" && policy.status === "active" && (
           <>
-            <button className="flex-1 bg-purple-600 text-white py-2 px-4 rounded-xl font-medium hover:bg-purple-700 transition-colors">
+            <button className="flex-1 bg-gradient-to-r from-purple-600 to-blue-600 text-white py-3 px-4 rounded-xl font-bold shadow-lg hover:shadow-xl hover:from-purple-700 hover:to-blue-700 transition-all duration-300 active:scale-95">
               View Details
             </button>
-            <button className="px-4 py-2 border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors">
+            <button className="px-4 py-3 bg-white/80 border border-gray-200 rounded-xl hover:bg-white hover:shadow-lg transition-all duration-300 active:scale-95">
               <Download className="w-4 h-4 text-gray-600" />
             </button>
           </>
@@ -168,17 +165,17 @@ const PoliciesScreen = () => {
 
         {type === "quote" && (
           <>
-            <button className="flex-1 bg-green-600 text-white py-2 px-4 rounded-xl font-medium hover:bg-green-700 transition-colors">
+            <button className="flex-1 bg-gradient-to-r from-green-600 to-green-700 text-white py-3 px-4 rounded-xl font-bold shadow-lg hover:shadow-xl hover:from-green-700 hover:to-green-800 transition-all duration-300 active:scale-95">
               Buy Now
             </button>
-            <button className="px-4 py-2 border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors">
+            <button className="px-4 py-3 bg-white/80 border border-gray-200 rounded-xl hover:bg-white hover:shadow-lg transition-all duration-300 active:scale-95">
               <Eye className="w-4 h-4 text-gray-600" />
             </button>
           </>
         )}
 
         {type === "policy" && policy.status === "expired" && (
-          <button className="flex-1 bg-orange-600 text-white py-2 px-4 rounded-xl font-medium hover:bg-orange-700 transition-colors">
+          <button className="flex-1 bg-gradient-to-r from-orange-600 to-orange-700 text-white py-3 px-4 rounded-xl font-bold shadow-lg hover:shadow-xl hover:from-orange-700 hover:to-orange-800 transition-all duration-300 active:scale-95">
             Renew Policy
           </button>
         )}
@@ -187,170 +184,174 @@ const PoliciesScreen = () => {
   );
 
   return (
-    <div className="bg-gray-50 min-h-screen max-w-sm mx-auto">
-      {/* Header */}
-      <div className="bg-white px-4 py-3 border-b border-gray-200">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center space-x-3">
-            <button className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-            onClick={() => setCurrentScreen("dashboard")}
-            >
-              <ArrowLeft className="w-6 h-6 text-gray-600" />
-            </button>
-            <h1 className="text-xl font-bold text-gray-900">Policies</h1>
-          </div>
-          <button className="p-2 hover:bg-gray-100 rounded-full transition-colors">
-            <Filter className="w-6 h-6 text-gray-600" />
-          </button>
-        </div>
-
-        {/* Search Bar */}
-        <div className="relative">
-          <Search className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
-          <input
-            type="text"
-            placeholder="Search policies or quotes..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-3 bg-gray-100 rounded-xl text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-300"
-          />
-        </div>
+    <div className="relative w-full h-screen flex bg-gradient-to-br from-purple-900 to-blue-700 overflow-hidden">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-10 pointer-events-none">
+        <div className="absolute top-[5%] left-[5%] w-24 h-24 bg-white rounded-full blur-3xl"></div>
+        <div className="absolute bottom-[10%] right-[5%] w-32 h-32 bg-purple-300 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/4 w-18 h-18 bg-blue-300 rounded-full blur-2xl"></div>
+        <div className="absolute top-[20%] right-[20%] w-16 h-16 bg-white/50 rounded-full blur-2xl"></div>
+        <div className="absolute bottom-[30%] left-[10%] w-20 h-20 bg-purple-400/60 rounded-full blur-3xl"></div>
       </div>
-      <div
-        className="overflow-y-auto"
-        style={{
-          height: "calc(100vh - 300px)",
-        }}
-      >
-        {/* Quick Actions */}
-        <div className="px-4 py-4 bg-white mb-2">
-          <div className="grid grid-cols-2 gap-3">
-            <button className="flex items-center justify-center space-x-2 bg-purple-600 text-white py-3 px-4 rounded-xl font-medium hover:bg-purple-700 transition-colors"onClick={() => setCurrentScreen("quote")}
-              >
-              <Plus className="w-5 h-5" />
-              <span>Get New Quote</span>
-            </button>
-            <button className="flex items-center justify-center space-x-2 border border-purple-600 text-purple-600 py-3 px-4 rounded-xl font-medium hover:bg-purple-50 transition-colors">
-              <FileText className="w-5 h-5" />
-              <span>Documents</span>
-            </button>
-          </div>
-        </div>
 
-        {/* Tab Navigation */}
-        <div className="bg-white px-4 py-2 border-b border-gray-200">
-          <div className="flex space-x-1">
-            {[
-              { id: "active", label: "Active", count: activePolicies.length },
-              {
-                id: "quotes",
-                label: "Saved Quotes",
-                count: savedQuotes.length,
-              },
-              {
-                id: "history",
-                label: "History",
-                count: expiredPolicies.length,
-              },
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`flex-1 py-3 px-4 rounded-xl font-medium transition-colors ${
-                  activeTab === tab.id
-                    ? "bg-purple-600 text-white"
-                    : "text-gray-600 hover:bg-gray-100"
-                }`}
-              >
-                {tab.label} ({tab.count})
+      <div className="relative max-w-sm mx-auto h-full">
+        {/* Header */}
+        <div className="bg-white/95 backdrop-blur-sm px-4 py-4 border-b border-white/20 shadow-lg">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center space-x-3">
+              <button className="p-2 hover:bg-gray-100/80 rounded-full transition-all duration-200 active:scale-95">
+                <ArrowLeft className="w-6 h-6 text-gray-700" />
               </button>
-            ))}
+              <h1 className="text-xl font-bold text-gray-900">Policies</h1>
+            </div>
+            <button className="p-2 hover:bg-gray-100/80 rounded-full transition-all duration-200 active:scale-95">
+              <Filter className="w-6 h-6 text-gray-700" />
+            </button>
+          </div>
+
+          {/* Search Bar */}
+          <div className="relative">
+            <Search className="absolute left-4 top-4 w-5 h-5 text-gray-400" />
+            <input
+              type="text"
+              placeholder="Search policies or quotes..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-12 pr-4 py-4 bg-gray-50/90 border border-gray-200/50 rounded-2xl text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 backdrop-blur-sm"
+            />
           </div>
         </div>
 
-        {/* Content */}
-        <div className="flex-1 p-4 pb-24">
-          {activeTab === "active" && (
-            <div>
-              {activePolicies.length === 0 ? (
-                <div className="text-center py-12">
-                  <Shield className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                    No Active Policies
-                  </h3>
-                  <p className="text-gray-500 mb-6">
-                    Get your first insurance policy in minutes
-                  </p>
-                  <button className="bg-purple-600 text-white py-3 px-6 rounded-xl font-medium hover:bg-purple-700 transition-colors">
-                    Get New Quote
-                  </button>
-                </div>
-              ) : (
-                activePolicies.map((policy) => (
-                  <PolicyCard key={policy.id} policy={policy} type="policy" />
-                ))
-              )}
+        <div className="overflow-y-auto h-full pb-32">
+          {/* Quick Actions */}
+          <div className="px-4 py-4 bg-white/95 backdrop-blur-sm mb-2 border-b border-white/20">
+            <div className="grid grid-cols-2 gap-3">
+              <button className="flex items-center justify-center space-x-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white py-3 px-4 rounded-2xl font-bold shadow-lg hover:shadow-xl hover:from-purple-700 hover:to-blue-700 transition-all duration-300 active:scale-95">
+                <Plus className="w-5 h-5" />
+                <span>Get New Quote</span>
+              </button>
+              <button className="flex items-center justify-center space-x-2 bg-white/90 border-2 border-purple-600/30 text-purple-700 py-3 px-4 rounded-2xl font-bold hover:bg-white hover:border-purple-600 hover:shadow-lg transition-all duration-300 active:scale-95 backdrop-blur-sm">
+                <FileText className="w-5 h-5" />
+                <span>Documents</span>
+              </button>
             </div>
-          )}
+          </div>
 
-          {activeTab === "quotes" && (
-            <div>
-              {savedQuotes.length === 0 ? (
-                <div className="text-center py-12">
-                  <FileText className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                    No Saved Quotes
-                  </h3>
-                  <p className="text-gray-500 mb-6">
-                    Save quotes to compare and purchase later
-                  </p>
-                  <button className="bg-purple-600 text-white py-3 px-6 rounded-xl font-medium hover:bg-purple-700 transition-colors">
-                    Create New Quote
-                  </button>
-                </div>
-              ) : (
-                savedQuotes.map((quote) => (
-                  <PolicyCard key={quote.id} policy={quote} type="quote" />
-                ))
-              )}
+          {/* Tab Navigation */}
+          <div className="bg-white/95 backdrop-blur-sm px-4 py-3 border-b border-white/20 shadow-sm">
+            <div className="flex space-x-2">
+              {[
+                { id: "active", label: "Active", count: activePolicies.length },
+                {
+                  id: "quotes",
+                  label: "Saved Quotes",
+                  count: savedQuotes.length,
+                },
+                {
+                  id: "history",
+                  label: "History",
+                  count: expiredPolicies.length,
+                },
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`flex-1 py-3 px-4 rounded-2xl font-bold transition-all duration-300 active:scale-95 shadow-sm ${
+                    activeTab === tab.id
+                      ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg"
+                      : "bg-white/80 text-gray-700 hover:bg-white hover:shadow-lg"
+                  }`}
+                >
+                  {tab.label} ({tab.count})
+                </button>
+              ))}
             </div>
-          )}
+          </div>
 
-          {activeTab === "history" && (
-            <div>
-              {expiredPolicies.length === 0 ? (
-                <div className="text-center py-12">
-                  <Clock className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                    No Policy History
-                  </h3>
-                  <p className="text-gray-500">
-                    Your expired and cancelled policies will appear here
-                  </p>
-                </div>
-              ) : (
-                expiredPolicies.map((policy) => (
-                  <PolicyCard key={policy.id} policy={policy} type="policy" />
-                ))
-              )}
-            </div>
-          )}
+          {/* Content */}
+          <div className="flex-1 p-4">
+            {activeTab === "active" && (
+              <div>
+                {activePolicies.length === 0 ? (
+                  <div className="text-center py-12 bg-white/95 backdrop-blur-sm rounded-3xl shadow-lg border border-white/30">
+                    <Shield className="w-20 h-20 text-purple-400 mx-auto mb-4" />
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">
+                      No Active Policies
+                    </h3>
+                    <p className="text-gray-600 mb-6 font-medium">
+                      Get your first insurance policy in minutes
+                    </p>
+                    <button className="bg-gradient-to-r from-purple-600 to-blue-600 text-white py-3 px-8 rounded-2xl font-bold shadow-lg hover:shadow-xl hover:from-purple-700 hover:to-blue-700 transition-all duration-300 active:scale-95">
+                      Get New Quote
+                    </button>
+                  </div>
+                ) : (
+                  activePolicies.map((policy) => (
+                    <PolicyCard key={policy.id} policy={policy} type="policy" />
+                  ))
+                )}
+              </div>
+            )}
+
+            {activeTab === "quotes" && (
+              <div>
+                {savedQuotes.length === 0 ? (
+                  <div className="text-center py-12 bg-white/95 backdrop-blur-sm rounded-3xl shadow-lg border border-white/30">
+                    <FileText className="w-20 h-20 text-purple-400 mx-auto mb-4" />
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">
+                      No Saved Quotes
+                    </h3>
+                    <p className="text-gray-600 mb-6 font-medium">
+                      Save quotes to compare and purchase later
+                    </p>
+                    <button className="bg-gradient-to-r from-purple-600 to-blue-600 text-white py-3 px-8 rounded-2xl font-bold shadow-lg hover:shadow-xl hover:from-purple-700 hover:to-blue-700 transition-all duration-300 active:scale-95">
+                      Create New Quote
+                    </button>
+                  </div>
+                ) : (
+                  savedQuotes.map((quote) => (
+                    <PolicyCard key={quote.id} policy={quote} type="quote" />
+                  ))
+                )}
+              </div>
+            )}
+
+            {activeTab === "history" && (
+              <div>
+                {expiredPolicies.length === 0 ? (
+                  <div className="text-center py-12 bg-white/95 backdrop-blur-sm rounded-3xl shadow-lg border border-white/30">
+                    <Clock className="w-20 h-20 text-purple-400 mx-auto mb-4" />
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">
+                      No Policy History
+                    </h3>
+                    <p className="text-gray-600 font-medium">
+                      Your expired and cancelled policies will appear here
+                    </p>
+                  </div>
+                ) : (
+                  expiredPolicies.map((policy) => (
+                    <PolicyCard key={policy.id} policy={policy} type="policy" />
+                  ))
+                )}
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Renewal Alert */}
         {activePolicies.some((p) => p.daysLeft <= 30) && (
-          <div className="fixed bottom-30 left-1/2  transform -translate-x-1/2 w-full max-w-sm px-4">
-            <div className="bg-orange-100 border border-orange-300 rounded-xl p-4 shadow-lg">
+          <div className="bottom-6 left-1/2 transform -translate-x-1/2 w-full max-w-sm px-4">
+            <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-2xl p-4 shadow-2xl border border-white/20 backdrop-blur-sm">
               <div className="flex items-start space-x-3">
-                <AlertCircle className="w-6 h-6 text-orange-600 mt-0.5" />
+                <AlertCircle className="w-6 h-6 text-white mt-0.5 flex-shrink-0" />
                 <div className="flex-1">
-                  <h4 className="font-semibold text-orange-900 mb-1">
+                  <h4 className="font-bold text-white mb-1">
                     Policy Expiring Soon
                   </h4>
-                  <p className="text-sm text-orange-800 mb-3">
+                  <p className="text-sm text-orange-100 mb-3 font-medium">
                     Your Tata Altroz policy expires in 15 days
                   </p>
-                  <button className="bg-orange-600 text-white py-2 px-4 rounded-lg font-medium text-sm hover:bg-orange-700 transition-colors">
+                  <button className="bg-white text-orange-600 py-2 px-4 rounded-xl font-bold text-sm hover:bg-orange-50 transition-all duration-300 active:scale-95 shadow-md">
                     Renew Now
                   </button>
                 </div>
@@ -361,6 +362,6 @@ const PoliciesScreen = () => {
       </div>
     </div>
   );
-};
+}
 
 export default PoliciesScreen;

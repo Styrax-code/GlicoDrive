@@ -3,8 +3,7 @@ import { useGlicoDrive } from "../utils/provider";
 import MotorCategory from "./MotorCategory";
 
 const Dashboard = () => {
-  const { setCurrentScreen,
-    vehicles, notifications, userProfile, icons } =
+  const { setCurrentScreen, vehicles, notifications, userProfile, icons } =
     useGlicoDrive();
 
   const {
@@ -12,8 +11,6 @@ const Dashboard = () => {
     Search,
     Menu,
     Car,
-    Truck,
-    Home,
     FileText,
     MapPin,
     Shield,
