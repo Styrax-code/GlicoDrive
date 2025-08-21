@@ -1,0 +1,472 @@
+# Ultimate .gitignore
+# Comprehensive coverage for multiple development environments
+# Last updated: May 2025
+
+# === OPERATING SYSTEMS ===
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# === EDITORS & IDEs ===
+# VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+.history/
+*.vsix
+
+# JetBrains IDEs
+.idea/
+*.iml
+*.iws
+*.ipr
+*.iws
+.idea_modules/
+out/
+atlassian-ide-plugin.xml
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# vim
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+Session.vim
+Sessionx.vim
+.netrwhist
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# Eclipse
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
+.project
+.classpath
+
+# === NODE.JS & FRONTEND FRAMEWORKS ===
+# Node.js
+node_modules/
+jspm_packages/
+bower_components/
+.npm/
+.yarn/
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+.yarn-integrity
+.node_repl_history
+node_repl_history
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Build outputs
+dist/
+build/
+out/
+.out/
+public/dist/
+coverage/
+.nyc_output/
+.fusebox/
+.dynamodb/
+.tern-port
+.next/
+.nuxt/
+.vuepress/dist
+.serverless/
+.temp
+.cache/
+.docusaurus
+.turbo
+.vercel
+.output
+.astro/
+
+# Various frameworks
+.nx/
+storybook-static
+.runtimeconfig.json
+.firebase/
+firebase-debug.log
+.angular/
+angular-errors.log
+.svelte-kit
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
+
+# Testing
+coverage/
+cypress/videos/
+cypress/screenshots/
+test-results/
+playwright-report/
+e2e-report/
+**/junit-*.xml
+**/xunit-*.xml
+**/.mocha-reports/
+
+# TypeScript
+*.tsbuildinfo
+tsconfig.tsbuildinfo
+.tscache/
+
+# === PYTHON ===
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Distribution / packaging
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+share/python-wheels/
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+virtualenv/
+.virtualenv/
+.env-*/
+.python-version
+pyvenv.cfg
+pip-selfcheck.json
+
+# Testing
+htmlcov/
+.tox/
+.nox/
+.hypothesis/
+.pytest_cache/
+nosetests.xml
+coverage.xml
+*.cover
+.coverage
+.coverage.*
+
+# Jupyter Notebook
+.ipynb_checkpoints
+profile_default/
+ipython_config.py
+
+# Static type analysis
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+
+# Python tools
+.spyderproject
+.spyproject
+.ropeproject
+.python-version
+.pdm.toml
+__pypackages__/
+
+# === JAVA & JVM LANGUAGES ===
+# Compiled class files
+*.class
+
+# Package files
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# Gradle
+.gradle/
+**/build/
+!src/**/build/
+gradle-app.setting
+!gradle-wrapper.jar
+.gradletasknamecache
+
+# Kotlin
+.kotlin/
+
+# === RUBY ===
+*.gem
+*.rbc
+/.config
+/coverage/
+/InstalledFiles
+/pkg/
+/spec/reports/
+/spec/examples.txt
+/test/tmp/
+/test/version_tmp/
+/tmp/
+.dat*
+.repl_history
+*.bridgesupport
+build-iPhoneOS/
+build-iPhoneSimulator/
+/.bundle/
+/vendor/bundle
+/lib/bundler/man/
+.rvmrc
+/vendor/
+
+# === GO ===
+# Binary files
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool
+*.out
+
+# Go workspace file
+go.work
+
+# Dependency directories
+/vendor/
+/Godeps/
+
+# === RUST ===
+/target/
+**/*.rs.bk
+Cargo.lock
+.rustc_info.json
+.rust/
+
+# === C/C++ ===
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# === DATABASES ===
+*.sqlite
+*.sqlite3
+*.db
+*.db-shm
+*.db-wal
+*.mdb
+*.ldb
+
+# === DOCKER & CONTAINERS ===
+.docker/
+docker-compose.override.yml
+docker-volume/
+docker-data/
+
+# === CI/CD & DEVOPS ===
+# GitHub Actions
+.github/workflows/*.log
+.github/*.secrets
+
+# CircleCI
+.circleci/*
+
+# Jenkins
+jenkins/
+
+# Travis CI
+.travis.yml
+
+# GitLab CI
+.gitlab-ci.yml
+
+# === MISC ===
+# Environment files (keep .env.example)
+.env
+.env.*
+!.env.example
+*.env
+*.ini
+*.cfg
+!example.ini
+!example.cfg
+
+# Logs
+logs/
+*.log
+
+# Temporary files
+tmp/
+temp/
+.tmp/
+.temp/
+*.tmp
+*.temp
+*.swp
+*.swo
+
+# Archives
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Documentation
+docs/_build/
+doc/_build/
+site/
+
+# Local configuration
+*.local
+local.*
+*.local.*
+
+# Secrets & credentials
+*secret*
+*credential*
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+*.der
+*.priv
+*_rsa
+*id_ed25519*
+*.pub
+
+# Lock files (uncomment if needed)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+# composer.lock
+# Gemfile.lock
+# Cargo.lock
+# poetry.lock
+
+# === PROJECT SPECIFIC ===
+# Add custom patterns for your project below
+
+z_misc/
