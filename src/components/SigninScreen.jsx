@@ -164,7 +164,9 @@ const SignInScreen = () => {
                 >
                   <Smartphone className="w-10 h-10 text-blue-600" />
                 </button>
-                <p className="text-sm text-gray-600 mb-4">Use Face ID / Touch ID</p>
+                <p className="text-sm text-gray-600 mb-4">
+                  Use Face ID / Touch ID
+                </p>
                 <div className="relative">
                   <div className="absolute inset-0 flex items-center">
                     <div className="w-full border-t border-gray-300" />
@@ -188,8 +190,8 @@ const SignInScreen = () => {
                       Account Temporarily Locked
                     </h4>
                     <p className="text-sm text-red-700 mt-1">
-                      Too many failed login attempts. Please try again in 15 minutes
-                      or use account recovery.
+                      Too many failed login attempts. Please try again in 15
+                      minutes or use account recovery.
                     </p>
                   </div>
                 </div>
@@ -272,7 +274,8 @@ const SignInScreen = () => {
               {failedAttempts > 0 && !isLocked && (
                 <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
                   <p className="text-sm text-yellow-800">
-                    {5 - failedAttempts} attempts remaining before account lockout
+                    {5 - failedAttempts} attempts remaining before account
+                    lockout
                   </p>
                 </div>
               )}

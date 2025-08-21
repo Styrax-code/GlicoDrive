@@ -350,7 +350,7 @@ const GlicoDriveConsumerDashboard = () => {
                     height: `${currentDevice.height}px`,
                   }}
                 >
-                  <div className="w-full h-full bg-gradient-to-br from-purple-900 to-blue-700 rounded-[14px] flex items-center justify-center text-white relative overflow-hidden">
+                  <div className="w-full h-full rounded-[14px] flex items-center justify-center text-white relative overflow-hidden">
                     <ConsumerApp />
                   </div>
                 </div>
