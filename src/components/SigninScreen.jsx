@@ -1,321 +1,204 @@
 import { useState } from "react";
 import { useGlicoDrive } from "../utils/provider";
 
-// Sign In Screen (Multi-Factor Authentication) - Fully Responsive
 const SignInScreen = () => {
-  const { setCurrentScreen, icons, appSettings } = useGlicoDrive();
-  const {
-    ArrowLeft,
-    Lock,
-    Eye,
-    EyeOff,
-    Smartphone,
-    Shield,
-    AlertTriangle,
-    Mail,
-  } = icons;
-
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    rememberMe: false,
-  });
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [biometricAvailable, setBiometricAvailable] = useState(true);
-  const [failedAttempts, setFailedAttempts] = useState(0);
-  const [isLocked, setIsLocked] = useState(false);
-  const [showTwoFactor, setShowTwoFactor] = useState(false);
-  const [twoFactorCode, setTwoFactorCode] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [errors, setErrors] = useState({});
 
-  const handleBiometricLogin = () => {
-    // Simulate biometric authentication
-    setCurrentScreen("dashboard");
-  };
+  const { setCurrentScreen, icons } = useGlicoDrive();
+  const { ArrowRight, Mail, Lock, Eye, EyeOff, AlertCircle, Shield } = icons;
 
-  const handleLogin = () => {
-    if (formData.email && formData.password) {
-      if (appSettings?.security?.twoFactorEnabled) {
-        setShowTwoFactor(true);
-      } else {
-        setCurrentScreen("dashboard");
-      }
-    } else {
-      setFailedAttempts((prev) => prev + 1);
-      if (failedAttempts >= 4) {
-        setIsLocked(true);
-      }
+  const handleSubmit = async () => {
+    setIsLoading(true);
+    setErrors({});
+
+    // Basic validation
+    const newErrors = {};
+    if (!email) newErrors.email = "Email is required";
+    if (!password) newErrors.password = "Password is required";
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      setIsLoading(false);
+      return;
     }
-  };
 
-  const handleTwoFactorVerification = () => {
-    if (twoFactorCode.length === 6) {
+    // Simulate login process
+    setTimeout(() => {
+      setIsLoading(false);
       setCurrentScreen("dashboard");
-    }
+    }, 2000);
   };
 
-  if (showTwoFactor) {
-    return (
-      <div className="bg-gray-50 w-full h-full flex flex-col">
-        {/* Header */}
-        <div className="bg-white shadow-sm flex-shrink-0">
-          <div className="flex items-center justify-between p-4">
-            <button
-              onClick={() => setShowTwoFactor(false)}
-              className="text-gray-600 hover:text-gray-800 transition-colors"
-            >
-              <ArrowLeft className="w-6 h-6" />
-            </button>
-            <div className="text-center">
-              <h1 className="text-lg font-semibold text-gray-900">
-                Two-Factor Authentication
-              </h1>
-              <p className="text-sm text-gray-500">Enter verification code</p>
-            </div>
-            <div className="w-6 h-6" />
-          </div>
-        </div>
-
-        {/* Content */}
-        <div className="flex-1 p-6 flex flex-col justify-center">
-          <div className="max-w-md mx-auto w-full space-y-6">
-            <div className="text-center">
-              <div className="w-20 h-20 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <Shield className="w-10 h-10 text-blue-600" />
-              </div>
-              <h2 className="text-2xl font-bold mb-2 text-gray-900">
-                Security Code
-              </h2>
-              <p className="text-gray-600">
-                We've sent a 6-digit code to your registered phone number ending
-                in ****67
-              </p>
-            </div>
-
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Verification Code
-                </label>
-                <input
-                  type="text"
-                  value={twoFactorCode}
-                  onChange={(e) =>
-                    setTwoFactorCode(
-                      e.target.value.replace(/\D/g, "").slice(0, 6)
-                    )
-                  }
-                  placeholder="000000"
-                  className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-center text-2xl font-mono tracking-widest"
-                  maxLength={6}
-                />
-              </div>
-
-              <button
-                onClick={handleTwoFactorVerification}
-                disabled={twoFactorCode.length !== 6}
-                className="w-full bg-blue-600 text-white py-4 px-6 rounded-xl font-semibold text-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors duration-200"
-              >
-                Verify & Continue
-              </button>
-
-              <div className="text-center">
-                <button className="text-blue-600 hover:text-blue-800 font-medium text-sm">
-                  Didn't receive code? Resend
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSubmit();
+    }
+  };
 
   return (
-    <div className="bg-gray-50 w-full h-full flex flex-col">
-      {/* Header */}
-      <div className="bg-white shadow-sm flex-shrink-0">
-        <div className="flex items-center justify-between p-4">
-          <button
-            onClick={() => setCurrentScreen("welcome")}
-            className="text-gray-600 hover:text-gray-800 transition-colors"
-          >
-            <ArrowLeft className="w-6 h-6" />
-          </button>
-          <div className="text-center">
-            <h1 className="text-lg font-semibold text-gray-900">
-              Welcome Back
-            </h1>
-            <p className="text-sm text-gray-500">Login to your account</p>
-          </div>
-          <div className="w-6 h-6" />
-        </div>
+    <div className="relative w-full h-full bg-gradient-to-br from-purple-900 to-blue-700 flex items-center justify-center overflow-hidden rounded-[14px]">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-15 pointer-events-none">
+        <div className="absolute top-[5%] left-[5%] w-16 h-16 sm:w-24 sm:h-24 lg:w-32 lg:h-32 bg-white rounded-full blur-3xl"></div>
+        <div className="absolute bottom-[10%] right-[5%] w-20 h-20 sm:w-32 sm:h-32 lg:w-40 lg:h-40 bg-purple-300 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/4 w-12 h-12 sm:w-18 sm:h-18 lg:w-24 lg:h-24 bg-blue-300 rounded-full blur-2xl"></div>
       </div>
 
-      {/* Scrollable Content */}
-      <div className="flex-1 overflow-y-auto">
-        <div className="p-6 space-y-6 min-h-full flex flex-col justify-center">
-          <div className="max-w-md mx-auto w-full space-y-6">
-            {/* Biometric Login Option */}
-            {biometricAvailable && (
-              <div className="text-center">
-                <button
-                  onClick={handleBiometricLogin}
-                  className="w-20 h-20 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4 hover:bg-blue-200 transition-colors"
-                >
-                  <Smartphone className="w-10 h-10 text-blue-600" />
-                </button>
-                <p className="text-sm text-gray-600 mb-4">
-                  Use Face ID / Touch ID
-                </p>
-                <div className="relative">
-                  <div className="absolute inset-0 flex items-center">
-                    <div className="w-full border-t border-gray-300" />
+      {/* Main Sign In Card */}
+      <div className="relative bg-white/95 backdrop-blur-sm rounded-2xl sm:rounded-3xl shadow-2xl w-[90%] h-auto max-w-md mx-auto overflow-hidden border border-white/20 flex flex-col">
+        {/* Header */}
+        <div className="text-center pt-8 sm:pt-10 pb-6 px-6 relative flex-shrink-0">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 flex items-center justify-center">
+            Logn In
+            <span className="ml-2 text-2xl">👋</span>
+          </h1>
+          <p className="text-gray-600 text-base font-medium">
+            To access your account
+          </p>
+        </div>
+
+        {/* Sign In Content */}
+        <div className="px-6 pb-8 flex-1">
+          <div className="space-y-4 mb-6">
+            {/* Email Input */}
+            <div className="space-y-2">
+              <div className="relative">
+                <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
+                  <Mail className="w-5 h-5 text-gray-400" />
+                </div>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  placeholder="Email"
+                  className={`w-full pl-12 pr-4 py-4 bg-gray-50 border rounded-2xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ${
+                    errors.email
+                      ? "border-red-300 bg-red-50"
+                      : "border-gray-200 hover:border-gray-300"
+                  }`}
+                />
+                {errors.email && (
+                  <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
+                    <AlertCircle className="w-5 h-5 text-red-500" />
                   </div>
-                  <div className="relative flex justify-center text-sm">
-                    <span className="px-2 bg-gray-50 text-gray-500">
-                      Or continue with password
-                    </span>
-                  </div>
-                </div>
+                )}
               </div>
-            )}
-
-            {/* Account Lockout Warning */}
-            {isLocked && (
-              <div className="bg-red-50 border border-red-200 rounded-xl p-4">
-                <div className="flex items-start space-x-3">
-                  <AlertTriangle className="w-6 h-6 text-red-600 mt-0.5" />
-                  <div>
-                    <h4 className="font-semibold text-red-800">
-                      Account Temporarily Locked
-                    </h4>
-                    <p className="text-sm text-red-700 mt-1">
-                      Too many failed login attempts. Please try again in 15
-                      minutes or use account recovery.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Login Form */}
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Email or Phone Number
-                </label>
-                <div className="relative">
-                  <input
-                    type="text"
-                    value={formData.email}
-                    onChange={(e) =>
-                      setFormData({ ...formData, email: e.target.value })
-                    }
-                    placeholder="Enter email or phone number"
-                    disabled={isLocked}
-                    className="w-full p-4 pl-12 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base disabled:bg-gray-100"
-                  />
-                  <Mail className="absolute left-4 top-4 w-5 h-5 text-gray-400" />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Password
-                </label>
-                <div className="relative">
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    value={formData.password}
-                    onChange={(e) =>
-                      setFormData({ ...formData, password: e.target.value })
-                    }
-                    placeholder="Enter your password"
-                    disabled={isLocked}
-                    className="w-full p-4 pl-12 pr-12 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base disabled:bg-gray-100"
-                  />
-                  <Lock className="absolute left-4 top-4 w-5 h-5 text-gray-400" />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-4 top-4 text-gray-400 hover:text-gray-600"
-                  >
-                    {showPassword ? (
-                      <EyeOff className="w-5 h-5" />
-                    ) : (
-                      <Eye className="w-5 h-5" />
-                    )}
-                  </button>
-                </div>
-              </div>
-
-              {/* Remember Me & Forgot Password */}
-              <div className="flex items-center justify-between">
-                <label className="flex items-center space-x-2">
-                  <input
-                    type="checkbox"
-                    checked={formData.rememberMe}
-                    onChange={(e) =>
-                      setFormData({ ...formData, rememberMe: e.target.checked })
-                    }
-                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                  />
-                  <span className="text-sm text-gray-700">Remember me</span>
-                </label>
-                <button
-                  onClick={() => setCurrentScreen("forgot-password")}
-                  className="text-sm text-blue-600 hover:text-blue-800 font-medium"
-                >
-                  Forgot Password?
-                </button>
-              </div>
-
-              {/* Failed Attempts Warning */}
-              {failedAttempts > 0 && !isLocked && (
-                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
-                  <p className="text-sm text-yellow-800">
-                    {5 - failedAttempts} attempts remaining before account
-                    lockout
-                  </p>
-                </div>
+              {errors.email && (
+                <p className="text-sm text-red-500 ml-2">{errors.email}</p>
               )}
-
-              <button
-                onClick={handleLogin}
-                disabled={isLocked || !formData.email || !formData.password}
-                className="w-full bg-blue-600 text-white py-4 px-6 rounded-xl font-semibold text-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors duration-200 shadow-lg"
-              >
-                Sign In
-              </button>
             </div>
 
-            {/* Security Features */}
-            <div className="bg-blue-50 rounded-xl p-4 border border-blue-200">
-              <div className="flex items-start space-x-3">
-                <Shield className="w-6 h-6 text-blue-600 mt-0.5" />
-                <div>
-                  <h4 className="font-semibold text-blue-900 mb-1">
-                    Secured by GLICO
-                  </h4>
-                  <p className="text-sm text-blue-700">
-                    Your login is protected with bank-level security including
-                    device verification and fraud detection.
-                  </p>
+            {/* Password Input */}
+            <div className="space-y-2">
+              <div className="relative">
+                <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
+                  <Lock className="w-5 h-5 text-gray-400" />
                 </div>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  placeholder="Password"
+                  className={`w-full pl-12 pr-12 py-4 bg-gray-50 border rounded-2xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ${
+                    errors.password
+                      ? "border-red-300 bg-red-50"
+                      : "border-gray-200 hover:border-gray-300"
+                  }`}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors duration-200"
+                >
+                  {showPassword ? (
+                    <EyeOff className="w-5 h-5" />
+                  ) : (
+                    <Eye className="w-5 h-5" />
+                  )}
+                </button>
+                {errors.password && (
+                  <div className="absolute right-12 top-1/2 transform -translate-y-1/2">
+                    <AlertCircle className="w-5 h-5 text-red-500" />
+                  </div>
+                )}
               </div>
+              {errors.password && (
+                <p className="text-sm text-red-500 ml-2">{errors.password}</p>
+              )}
             </div>
+          </div>
 
-            {/* Alternative Action */}
-            <div className="text-center">
-              <button
-                onClick={() => setCurrentScreen("signup")}
-                className="text-blue-600 hover:text-blue-800 font-medium"
-              >
-                Don't have an account? Get Started
-              </button>
+          {/* Login Button */}
+          <button
+            onClick={handleSubmit}
+            disabled={isLoading}
+            className="group w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-4 rounded-2xl font-semibold text-base shadow-lg hover:shadow-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 active:scale-98 flex items-center justify-center relative overflow-hidden disabled:opacity-70 disabled:cursor-not-allowed"
+          >
+            {isLoading ? (
+              <>
+                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2"></div>
+                Signing In...
+              </>
+            ) : (
+              <>
+                <div className="absolute inset-0 bg-white/10 transform translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
+                <span className="relative z-10">Login</span>
+                <ArrowRight className="w-4 h-4 ml-2 relative z-10 group-hover:translate-x-1 transition-transform duration-300" />
+              </>
+            )}
+          </button>
+
+          {/* Forgot Password Link */}
+          <div className="text-center mt-6">
+            <button
+              type="button"
+              onClick={() => setCurrentScreen("forgot-password")}
+              className="text-blue-600 hover:text-blue-700 font-medium text-base transition-colors duration-200 hover:underline"
+            >
+              Forgot Password?
+            </button>
+          </div>
+
+          {/* Divider */}
+          <div className="flex items-center my-6">
+            <div className="flex-1 border-t border-gray-200"></div>
+            <span className="px-4 text-sm text-gray-500 font-medium">OR</span>
+            <div className="flex-1 border-t border-gray-200"></div>
+          </div>
+
+          {/* Sign Up Link */}
+          <div className="text-center">
+            <p className="text-gray-600 text-sm mb-2">Don't have an account?</p>
+            <button
+              type="button"
+              onClick={() => setCurrentScreen("signup")}
+              className="text-blue-600 hover:text-blue-700 font-semibold text-base transition-colors duration-200 hover:underline"
+            >
+              Create Account
+            </button>
+          </div>
+
+          {/* Trust Indicators */}
+          <div className="mt-6 pt-4 border-t border-gray-100">
+            <div className="flex items-center justify-center text-xs text-gray-500 mb-2">
+              <Shield className="w-4 h-4 mr-2 text-blue-600" />
+              <span>GIC Licensed • Bank of Ghana Compliant</span>
+            </div>
+            <div className="flex items-center justify-center text-xs text-gray-500 mb-2">
+              <Lock className="w-4 h-4 mr-2 text-gray-600" />{" "}
+              <span>Your data is encrypted and secure</span>
             </div>
           </div>
         </div>
+
+        {/* Bottom accent */}
+        <div className="h-1 bg-gradient-to-r from-blue-500 to-purple-600 flex-shrink-0"></div>
       </div>
     </div>
   );

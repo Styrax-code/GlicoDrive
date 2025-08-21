@@ -10,7 +10,7 @@ import QuoteScreen from "./QuoteScreen";
 import SignInScreen from "./SigninScreen";
 import SignupScreen from "./SignupScreen";
 import StatusBar from "./StatusBar";
-import WelcomeScreen from "./WelcomeScreen-v2";
+import WelcomeScreen from "./WelcomeScreen";
 import { GlicoDriveProvider, useGlicoDrive } from "../utils/provider";
 
 // Main App Router

@@ -366,7 +366,7 @@ const GlicoDriveConsumerDashboard = () => {
                 </div>
                 <div className="text-center p-3 bg-gray-50 rounded-lg">
                   <div className="text-sm font-semibold text-blue-600">
-                    v2.1.0
+                    v1.0
                   </div>
                   <div className="text-xs text-gray-600">Version</div>
                 </div>
