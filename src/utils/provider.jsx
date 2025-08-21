@@ -11,6 +11,7 @@ import {
   Settings,
   FileText,
   AlertTriangle,
+  AlertCircle,
   CheckCircle,
   Clock,
   Smartphone,
@@ -46,6 +47,7 @@ import {
   Wifi,
   ChevronUp,
   ChevronDown,
+  MessageCircle,
   Download,
   Share2,
   RefreshCw,
@@ -63,7 +65,8 @@ import {
   LogOut,
   Copy,
   ExternalLink,
-  Mail
+  Mail,
+  Hand
 } from "lucide-react";
 
 // Enhanced Context with comprehensive state management
@@ -297,6 +300,7 @@ export const GlicoDriveProvider = ({ children }) => {
       Settings,
       FileText,
       AlertTriangle,
+      AlertCircle,
       CheckCircle,
       Clock,
       Smartphone,
@@ -309,6 +313,7 @@ export const GlicoDriveProvider = ({ children }) => {
       Wallet,
       BarChart3,
       MessageSquare,
+      MessageCircle,
       Navigation,
       Heart,
       Award,
@@ -350,6 +355,7 @@ export const GlicoDriveProvider = ({ children }) => {
       Copy,
       ExternalLink,
       Mail,
+      Hand,
     },
   };
 

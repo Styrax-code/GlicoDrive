@@ -9,7 +9,7 @@ const SignInScreen = () => {
   const [errors, setErrors] = useState({});
 
   const { setCurrentScreen, icons } = useGlicoDrive();
-  const { ArrowRight, Mail, Lock, Eye, EyeOff, AlertCircle, Shield } = icons;
+  const { ArrowRight, Mail, Lock, Eye, EyeOff, AlertCircle, Shield, Hand } = icons;
 
   const handleSubmit = async () => {
     setIsLoading(true);
@@ -53,8 +53,8 @@ const SignInScreen = () => {
         {/* Header */}
         <div className="text-center pt-8 sm:pt-10 pb-6 px-6 relative flex-shrink-0">
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 flex items-center justify-center">
-            Logn In
-            <span className="ml-2 text-2xl">👋</span>
+            Log In
+            <span className="ml-2 text-2xl"><Hand /></span>
           </h1>
           <p className="text-gray-600 text-base font-medium">
             To access your account
@@ -74,7 +74,7 @@ const SignInScreen = () => {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  onKeyPress={handleKeyPress}
+                  onKeyDown={handleKeyPress}
                   placeholder="Email"
                   className={`w-full pl-12 pr-4 py-4 bg-gray-50 border rounded-2xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ${
                     errors.email
@@ -103,7 +103,7 @@ const SignInScreen = () => {
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  onKeyPress={handleKeyPress}
+                  onKeyDown={handleKeyPress}
                   placeholder="Password"
                   className={`w-full pl-12 pr-12 py-4 bg-gray-50 border rounded-2xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ${
                     errors.password
