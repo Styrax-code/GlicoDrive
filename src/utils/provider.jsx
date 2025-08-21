@@ -63,6 +63,7 @@ import {
   LogOut,
   Copy,
   ExternalLink,
+  Mail
 } from "lucide-react";
 
 // Enhanced Context with comprehensive state management
@@ -348,6 +349,7 @@ export const GlicoDriveProvider = ({ children }) => {
       LogOut,
       Copy,
       ExternalLink,
+      Mail,
     },
   };
 
